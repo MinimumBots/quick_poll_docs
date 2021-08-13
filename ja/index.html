@@ -39,7 +39,6 @@
   </div>
 
   <div class="container" style="margin-top: 120px;">
-    <h1>Quick Poll</h1>
     <p class="lead mt-2">
       Discord用の高機能アンケートBOTです。<br />
       簡単なコマンド操作で様々なアンケートを作成でき、票数の集計、データ出力まで行えます。
@@ -50,11 +49,13 @@
       BOTに対してメンションを送るか、コマンドのすべてのパラメータを省略すると、簡単なチュートリアルが表示されます。<br />
       各コマンドを利用するときは必ず<code class="bg-dark mx-1 my-0 p-1 rounded">?</code>で始め、
       各パラメータは<strong>半角・全角スペース</strong>か<strong>改行</strong>で区切って入力してください。<br />
-      各パラメータに半角・全角スペースを含めたいときは、パラメータ全体を<code class="bg-dark mx-1 my-0 p-1 rounded">&quot;&quot;</code>で囲ってください。
+      各パラメータに半角・全角スペースを含めたいときは、パラメータ全体を<code class="bg-dark mx-1 my-0 p-1 rounded">&quot;&quot;</code>で囲ってください。<br />
+      <br />
+      (※パラメータとは、質問文や選択肢といったアンケートの作成に必要な各文字列のことです。)
     </p>
 
     <h3 class="mt-4">コマンド一覧</h3>
-    <p>各コマンドをタップすると詳しい説明へ移動します。</p>
+    <p>各コマンド名をタップすると詳しい説明へ移動します。</p>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -93,7 +94,7 @@
     </p>
     <p>
       コマンド名に続いて、通知を送りたいメンションを指定することができます。<br />
-      対応するメンションの種類は、
+      対応するメンションは、
       <code class="bg-dark mx-1 my-0 p-1 rounded">@everyone</code>
       <code class="bg-dark mx-1 my-0 p-1 rounded">@here</code>
       とロールメンションです。<br />
@@ -105,7 +106,7 @@
     </p>
     <p>
       質問文は1つまで指定することができ、続けて選択肢を<strong>最大20個</strong>まで指定できます。<br />
-      なお、対になる絵文字と選択肢は交互になるように入力してください。
+      なお、対になる絵文字と選択肢は<strong>交互に</strong>なるように入力してください。
     </p>
     <p>
       絵文字を省略した場合、
@@ -120,21 +121,20 @@
       の二択からなるアンケートが作成されます。
     </p>
     <p>
-      また、コマンド文と共に画像ファイルを添付すると、その画像をアンケートに埋め込みます。
+      また、コマンド文と共にメッセージに画像ファイルを添付すると、画像付きのアンケートが作成されます。
     </p>
     <p>
-      <code class="bg-dark mx-1 my-0 p-1 rounded">?expoll</code>コマンドでは選択肢を1人1つまでしか選べないよう制限されます。
+      さらに<code class="bg-dark mx-1 my-0 p-1 rounded">?expoll</code>コマンドでは、1人が1つの選択肢だけに投票できるアンケートが作成されます。
     </p>
 
     <h5>文法</h5>
     <div class="bg-dark mb-4 p-3 rounded">
-      <code>?poll [&lt;ロールメンション&gt;]... &lt;質問文&gt; [[&lt;絵文字&gt;] [&lt;選択肢&gt;]]...</code><br />
-      <code>?expoll [&lt;ロールメンション&gt;]... &lt;質問文&gt; [[&lt;絵文字&gt;] [&lt;選択肢&gt;]]...</code>
+      <code>?poll [ロールメンション]... 質問文 [[絵文字] [選択肢]]...</code><br />
+      <code>?expoll [ロールメンション]... 質問文 [[絵文字] [選択肢]]...</code>
     </div>
     <p>
-      ※<code class="bg-dark mx-1 my-0 p-1 rounded">&lt;&gt;</code>で囲まれた部分は指定された値、
-      <code class="bg-dark mx-1 my-0 p-1 rounded">[]</code>で囲まれた部分は必要に応じて入力する値、
-      <code class="bg-dark mx-1 my-0 p-1 rounded">...</code>は直前の値が複数指定できることを示し、
+      ※<code class="bg-dark mx-1 my-0 p-1 rounded">[]</code>で囲まれたパラメータは省略でき、
+      <code class="bg-dark mx-1 my-0 p-1 rounded">...</code>は直前のパラメータを複数指定できます。
       それぞれの記号は除いて入力してください。
     </p>
 
@@ -144,9 +144,10 @@
         ?poll スイカは果物である<br />
         ?poll カロリーメイト何味が好き？ チーズ フルーツ チョコレート メープル プレーン<br />
         ?poll 好きな果物は？ 🍎 りんご 🍇 ぶどう 🍊 みかん 🥝 キウイ<br />
-        ?poll 今の気持ちを選んで！ 😄 😊 😢 😠<br />
+        ?poll 今の気分を選んで！ 😊 😐 😢 😠<br />
         ?poll everyone 今日は何時に集まれそう？ 19時 20時 21時<br />
-        ?expoll 東北地方ではない県を選べ 岩手 青森 山梨 秋田 福島
+        ?expoll 東北地方ではない県を選べ 岩手 青森 山梨 秋田 福島<br />
+        ?expoll 626469147827634232 いま何問目？ 4問目 6問目 8問目 10問目
       </code>
     </div>
 
@@ -157,10 +158,15 @@
       アンケートの集計を行います。<br />
       <strong>同じサーバー内のアンケートのみ</strong>集計できます。<br />
       アンケート作成時に表示されたコマンド文をそのまま送信するか、アンケートのメッセージIDを取得(※)して入力してください。<br />
+      また、アンケート内の
+      <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f4ca.png" width="20" />
+      アイコンをタップすることで、集計用コマンドをコピーできるWEBページが開きます。<br />
+      <br />
       (※PC版DiscordではShiftキーを押しながらアンケートにカーソルを合わせ、右上に表示される🆔ボタンを押すと取得できます。)
     </p>
     <p>
       <code class="bg-dark mx-1 my-0 p-1 rounded">?endpoll</code>コマンドは集計したアンケートを投票できない状態に変更します。
+      (※以後再び集計することはできなくなります。)
     </p>
     <p>
       <code class="bg-dark mx-1 my-0 p-1 rounded">?csvpoll</code>コマンドはアンケートを集計し、メンバー毎の投票先をCSVデータとして出力します。
@@ -168,23 +174,26 @@
 
     <h5>文法</h5>
     <div class="bg-dark mb-4 p-3 rounded">
-      <code>?sumpoll [&lt;チャンネルID&gt;-]&lt;メッセージID&gt;</code><br />
-      <code>?endpoll [&lt;チャンネルID&gt;-]&lt;メッセージID&gt;</code><br />
-      <code>?csvpoll [&lt;チャンネルID&gt;-]&lt;メッセージID&gt;</code>
+      <code>
+        ?sumpoll [チャンネルID-]メッセージID<br />
+        ?endpoll [チャンネルID-]メッセージID<br />
+        ?csvpoll [チャンネルID-]メッセージID
+      </code>
     </div>
     <p>
-      ※<code class="bg-dark mx-1 my-0 p-1 rounded">&lt;&gt;</code>で囲まれた部分は指定された値、
-      <code class="bg-dark mx-1 my-0 p-1 rounded">[]</code>で囲まれた部分は必要に応じて入力する値、
-      <code class="bg-dark mx-1 my-0 p-1 rounded">...</code>は直前の値が複数指定できることを示し、
+      ※<code class="bg-dark mx-1 my-0 p-1 rounded">[]</code>で囲まれたパラメータは省略でき、
+      <code class="bg-dark mx-1 my-0 p-1 rounded">...</code>は直前のパラメータを複数指定できます。
       それぞれの記号は除いて入力してください。
     </p>
 
     <h5>入力例</h5>
     <div class="bg-dark mb-4 p-3 rounded">
-      <code>?sumpoll 729730719039094916</code><br />
-      <code>?sumpoll 609043799041245231-643871842448310275</code><br />
-      <code>?endpoll 553481419725209602</code><br />
-      <code>?csvpoll 608867043793436672</code>
+      <code>
+        ?sumpoll 729730719039094916<br />
+        ?sumpoll 609043799041245231-643871842448310275<br />
+        ?endpoll 553481419725209602<br />
+        ?csvpoll 608867043793436672
+      </code>
     </div>
 
     <h3 class="mt-5">文法の解説</h3>
